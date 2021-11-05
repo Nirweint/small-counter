@@ -1,0 +1,28 @@
+.btn {
+    margin: 10px;
+    padding: 10px 20px;
+
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: #fff;
+    color: black;
+
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+.btn:hover:enabled {
+    background-color: #fff;
+}
+
+.btn:active:enabled {
+    border: 2px solid #ffcf47;
+}
+
+.disabled {
+    opacity: 0.5;
+    border: 2px solid #ffcf47;
+    cursor: default;
+}
+
+
