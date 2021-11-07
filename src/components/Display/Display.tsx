@@ -6,7 +6,7 @@ type PropsType = {
     maxValue: number
 }
 
-export const Display: React.FC<PropsType> = ({value, maxValue, ...props}) => {
+export const Display = ({value, maxValue, ...props}: PropsType) => {
 
     const displayNumberStyle = maxValue === value ? `${s.display} ${s.active}` : `${s.display}`
 

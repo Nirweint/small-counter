@@ -11,8 +11,8 @@
     transition-duration: 0.3s;
 }
 
-.btn:hover:enabled {
-    background-color: #fff;
+.btn:hover {
+    background-color: #f3f3f3;
 }
 
 .btn:active:enabled {
@@ -25,4 +25,6 @@
     cursor: default;
 }
 
-
+.disabled:hover {
+    background-color: #fff;
+}

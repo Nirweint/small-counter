@@ -3,7 +3,7 @@ import './App.css';
 import {Button} from "./components/UI/Button";
 import {Display} from "./components/Display/Display";
 
-function App() {
+export const App = () => {
 
     const minValue = 0;
     const maxValue = 5;
@@ -43,4 +43,3 @@ function App() {
     );
 }
 
-export default App;
