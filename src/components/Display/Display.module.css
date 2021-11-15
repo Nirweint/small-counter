@@ -16,3 +16,12 @@
 .active {
     color: red;
 }
+
+.change {
+    font-size: 24px;
+}
+
+.error {
+    font-size: 24px;
+    color: red;
+}
