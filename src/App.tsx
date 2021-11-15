@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {SettingsForCounter} from "./components/SettingsForCounter/SettingsForCounter";
 import {Counter} from "./components/Counter/Counter";
@@ -23,7 +23,6 @@ export const App = () => {
     let [state, setState] = useState<StateType>(initState)
     let [change, setChange] = useState<boolean>(true)
     let [error, setError] = useState<boolean>(false)
-
 
     const increaseNumber = () => {
         if (state.currentValue < state.maxValue) {
@@ -52,7 +51,7 @@ export const App = () => {
         setChange(false)
     }
     const onSet = () => {
-        if (state.minValue !== state.maxValue) {
+        if (state.minValue !== state.maxValue && state.minValue >= startedMinValue) {
             setMinValue(state.minValue)
             setMaxValue(state.maxValue)
             resetNumber()
