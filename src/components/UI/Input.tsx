@@ -9,24 +9,23 @@ type PropsType = {
     max?: number
 }
 
-export const Input = ({type, value, ...props}: PropsType) => {
+export const Input = ({type, value,min, max, setValue, ...props}: PropsType) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let num = e.currentTarget.value
-        props.setValue(+num)
+        setValue(+num)
     }
 
-    const errorStyle = props.min === value ? s.error : '' || props.max === value ? s.error : '';
+    const errorStyle = min === value ? s.error : '' || max === value ? s.error : '';
 
     return (
         <input
             className={errorStyle}
             value={value}
             onChange={onChangeHandler}
-            // onKeyPress={onKeyPressHandler}
             type={type}
-            min={props.min}
-            max={props.max}
+            min={min}
+            max={max}
         />
     );
 }

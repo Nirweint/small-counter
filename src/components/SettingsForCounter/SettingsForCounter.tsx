@@ -14,20 +14,20 @@ type PropsType = {
     error: boolean
 }
 
-export const SettingsForCounter = ({startedMinValue, ...props}: PropsType) => {
+export const SettingsForCounter = ({
+                                       startedMinValue, state, change,
+                                       error, setMinValue, setMaxValue, onSet, ...props
+                                   }: PropsType) => {
 
     const setMinValueHandler = (value: number) => {
-        props.setMinValue(value)
-
+        setMinValue(value)
     }
     const setMaxValueHandler = (value: number) => {
-        props.setMaxValue(value)
+        setMaxValue(value)
     }
-
     const onSetHandler = () => {
-        props.onSet()
+        onSet()
     }
-
 
     return (
         <div className={s.settings}>
@@ -38,9 +38,9 @@ export const SettingsForCounter = ({startedMinValue, ...props}: PropsType) => {
                         <span>max value:</span>
                         <Input
                             type="number"
-                            value={props.state.maxValue}
+                            value={state.maxValue}
                             setValue={setMaxValueHandler}
-                            min={props.state.minValue}
+                            min={state.minValue}
                         />
                     </div>
 
@@ -48,16 +48,16 @@ export const SettingsForCounter = ({startedMinValue, ...props}: PropsType) => {
                         <span>start value:</span>
                         <Input
                             type="number"
-                            value={props.state.minValue}
+                            value={state.minValue}
                             setValue={setMinValueHandler}
                             min={startedMinValue - 1}
-                            max={props.state.maxValue}
+                            max={state.maxValue}
                         />
                     </div>
 
                 </div>
             </div>
-            <Button name={'set'} callBack={onSetHandler} disabled={props.change || props.error}/>
+            <Button name={'set'} callBack={onSetHandler} disabled={change || error}/>
         </div>
     );
 }

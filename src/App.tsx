@@ -20,16 +20,10 @@ export const App = () => {
         currentValue: startedMinValue,
     }
 
-
     let [state, setState] = useState<StateType>(initState)
     let [change, setChange] = useState<boolean>(true)
     let [error, setError] = useState<boolean>(false)
 
-    // useEffect(() => {
-    //     localStorage.setItem('minValue', JSON.stringify(state.minValue))
-    //     localStorage.setItem('maxValue', JSON.stringify(state.maxValue))
-    //     localStorage.setItem('currentValue', JSON.stringify(state.currentValue))
-    // }, [])
 
     const increaseNumber = () => {
         if (state.currentValue < state.maxValue) {
@@ -48,9 +42,8 @@ export const App = () => {
         setChange(false)
         setState({...state, minValue: value})
     }
-
     const setMaxValue = (value: number) => {
-        if (value <= state.minValue ) {
+        if (value <= state.minValue) {
             setError(true)
         } else {
             setError(false)
@@ -58,7 +51,6 @@ export const App = () => {
         setState({...state, maxValue: value})
         setChange(false)
     }
-
     const onSet = () => {
         if (state.minValue !== state.maxValue) {
             setMinValue(state.minValue)
@@ -81,9 +73,9 @@ export const App = () => {
                 error={error}
             />
             <Counter
-                state={state}
                 increaseNumber={increaseNumber}
                 resetNumber={resetNumber}
+                state={state}
                 change={change}
                 error={error}
             />

@@ -12,7 +12,7 @@ type CounterPropsType = {
     error: boolean
 }
 
-export const Counter = ({state, increaseNumber, resetNumber, change,error, ...props}: CounterPropsType) => {
+export const Counter = ({state, increaseNumber, resetNumber, change, error, ...props}: CounterPropsType) => {
     return (
         <div className={s.counter}>
             <Display
