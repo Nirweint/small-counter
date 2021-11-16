@@ -16,7 +16,7 @@ export const Counter = ({state, increaseNumber, resetNumber, change, error, ...p
     return (
         <div className={s.counter}>
             <Display
-                value={state.currentValue}
+                currentValue={state.currentValue}
                 maxValue={state.maxValue}
                 change={change}
                 error={error}

@@ -20,17 +20,17 @@ export const App = () => {
         currentValue: startedMinValueForError,
     }
 
-    let [state, setState] = useState<StateType>(initState)
-    let [change, setChange] = useState<boolean>(true)
-    let [error, setError] = useState<boolean>(false)
+    const [state, setState] = useState<StateType>(initState)
+    const [change, setChange] = useState<boolean>(true)
+    const [error, setError] = useState<boolean>(false)
 
     useEffect(() => {
-        let minValueFromLocalstorage = localStorage.getItem('minValue')
-        let maxValueFromLocalstorage = localStorage.getItem('maxValue')
+        const minValueFromLocalstorage = localStorage.getItem('minValue')
+        const maxValueFromLocalstorage = localStorage.getItem('maxValue')
 
         if (minValueFromLocalstorage && maxValueFromLocalstorage) {
-            let minValue = JSON.parse(minValueFromLocalstorage)
-            let maxValue = JSON.parse(maxValueFromLocalstorage)
+            const minValue = JSON.parse(minValueFromLocalstorage)
+            const maxValue = JSON.parse(maxValueFromLocalstorage)
 
             setState({...state, minValue, maxValue, currentValue: minValue})
         }
