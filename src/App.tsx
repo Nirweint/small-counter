@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {SettingsForCounter} from "./components/SettingsForCounter/SettingsForCounter";
 import {Counter} from "./components/Counter/Counter";
@@ -11,18 +11,30 @@ export type StateType = {
 
 export const App = () => {
 
-    const startedMinValue = 0;
+    const startedMinValueForError = 0; // min value to catch error with negative integer
     const startedMaxValue = 5;
 
     const initState: StateType = {
-        minValue: startedMinValue,
+        minValue: startedMinValueForError,
         maxValue: startedMaxValue,
-        currentValue: startedMinValue,
+        currentValue: startedMinValueForError,
     }
 
     let [state, setState] = useState<StateType>(initState)
     let [change, setChange] = useState<boolean>(true)
     let [error, setError] = useState<boolean>(false)
+
+    useEffect(() => {
+        let minValueFromLocalstorage = localStorage.getItem('minValue')
+        let maxValueFromLocalstorage = localStorage.getItem('maxValue')
+
+        if (minValueFromLocalstorage && maxValueFromLocalstorage) {
+            let minValue = JSON.parse(minValueFromLocalstorage)
+            let maxValue = JSON.parse(maxValueFromLocalstorage)
+
+            setState({...state, minValue, maxValue, currentValue: minValue})
+        }
+    }, [])
 
     const increaseNumber = () => {
         if (state.currentValue < state.maxValue) {
@@ -33,7 +45,7 @@ export const App = () => {
         setState({...state, currentValue: state.minValue})
     }
     const setMinValue = (value: number) => {
-        if (value < startedMinValue || value >= state.maxValue) {
+        if (value < startedMinValueForError || value >= state.maxValue) {
             setError(true)
         } else {
             setError(false)
@@ -51,11 +63,14 @@ export const App = () => {
         setChange(false)
     }
     const onSet = () => {
-        if (state.minValue !== state.maxValue && state.minValue >= startedMinValue) {
+        if (state.minValue !== state.maxValue && state.minValue >= startedMinValueForError) {
             setMinValue(state.minValue)
             setMaxValue(state.maxValue)
             resetNumber()
             setChange(true)
+
+            localStorage.setItem('maxValue', JSON.stringify(state.maxValue))
+            localStorage.setItem('minValue', JSON.stringify(state.minValue))
         }
     }
 
@@ -63,7 +78,7 @@ export const App = () => {
         <div className={"app"}>
 
             <SettingsForCounter
-                startedMinValue={startedMinValue}
+                startedMinValue={startedMinValueForError}
                 setMinValue={setMinValue}
                 setMaxValue={setMaxValue}
                 onSet={onSet}
