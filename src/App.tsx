@@ -63,7 +63,7 @@ export const App = () => {
         setChange(false)
     }
     const onSet = () => {
-        if (state.minValue !== state.maxValue && state.minValue >= startedMinValueForError) {
+        if (state.minValue !== state.maxValue && state.minValue >= startedMinValueForError && !change) {
             setMinValue(state.minValue)
             setMaxValue(state.maxValue)
             resetNumber()

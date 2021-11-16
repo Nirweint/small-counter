@@ -8,7 +8,7 @@ type PropsType = {
     error: boolean
 }
 
-export const Display = ({currentValue, maxValue,change, error, ...props}: PropsType) => {
+export const Display = ({currentValue, maxValue, change, error, ...props}: PropsType) => {
 
     const displayNumberStyle = maxValue === currentValue && change ? `${s.display} ${s.active}` : `${s.display}`
 

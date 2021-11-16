@@ -26,7 +26,7 @@ export const SettingsForCounter = ({
         setMaxValue(value)
     }
     const onSetHandler = () => {
-        onSet()
+            onSet()
     }
 
     return (
