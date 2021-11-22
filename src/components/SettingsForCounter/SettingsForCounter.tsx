@@ -10,12 +10,12 @@ type PropsType = {
     setMaxValue: (value: number) => void
     onSet: () => void
     state: StateType
-    change: boolean
+    editMode: boolean
     error: boolean
 }
 
 export const SettingsForCounter = ({
-                                       startedMinValue, state, change,
+                                       startedMinValue, state, editMode,
                                        error, setMinValue, setMaxValue, onSet, ...props
                                    }: PropsType) => {
 
@@ -57,7 +57,7 @@ export const SettingsForCounter = ({
 
                 </div>
             </div>
-            <Button name={'set'} callBack={onSetHandler} disabled={change || error}/>
+            <Button name={'set'} callBack={onSetHandler} disabled={!editMode || error}/>
         </div>
     );
 }

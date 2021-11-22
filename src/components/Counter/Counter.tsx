@@ -8,17 +8,17 @@ type CounterPropsType = {
     state: StateType
     increaseNumber: () => void
     resetNumber: () => void
-    change: boolean
+    editMode: boolean
     error: boolean
 }
 
-export const Counter = ({state, increaseNumber, resetNumber, change, error, ...props}: CounterPropsType) => {
+export const Counter = ({state, increaseNumber, resetNumber, editMode, error, ...props}: CounterPropsType) => {
     return (
         <div className={s.counter}>
             <Display
                 currentValue={state.currentValue}
                 maxValue={state.maxValue}
-                change={change}
+                editMode={editMode}
                 error={error}
             />
 
@@ -26,12 +26,12 @@ export const Counter = ({state, increaseNumber, resetNumber, change, error, ...p
                 <Button
                     name={'increase'}
                     callBack={increaseNumber}
-                    disabled={state.currentValue === state.maxValue || !change}
+                    disabled={state.currentValue === state.maxValue || editMode}
                 />
                 <Button
                     name={'reset'}
                     callBack={resetNumber}
-                    disabled={state.currentValue === state.minValue || !change}
+                    disabled={state.currentValue === state.minValue || editMode}
                 />
             </div>
         </div>

@@ -4,17 +4,17 @@ import s from './Display.module.css'
 type PropsType = {
     currentValue?: number
     maxValue: number
-    change: boolean
+    editMode: boolean
     error: boolean
 }
 
-export const Display = ({currentValue, maxValue, change, error, ...props}: PropsType) => {
+export const Display = ({currentValue, maxValue, editMode, error, ...props}: PropsType) => {
 
-    const displayNumberStyle = maxValue === currentValue && change ? `${s.display} ${s.active}` : `${s.display}`
+    const displayNumberStyle = maxValue === currentValue && !editMode ? `${s.display} ${s.active}` : `${s.display}`
 
     return (
         <div className={displayNumberStyle}>
-            {change ? currentValue : error || <span className={s.change}>Enter values and press 'set'</span>}
+            {!editMode ? currentValue : error || <span className={s.editMode}>Enter values and press 'set'</span>}
             {error && <span className={s.error}>Incorrect value!</span>}
         </div>
     );

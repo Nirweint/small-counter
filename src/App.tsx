@@ -21,7 +21,7 @@ export const App = () => {
     }
 
     const [state, setState] = useState<StateType>(initState)
-    const [change, setChange] = useState<boolean>(true)
+    const [editMode, setEditMode] = useState<boolean>(false)
     const [error, setError] = useState<boolean>(false)
 
     useEffect(() => {
@@ -50,7 +50,7 @@ export const App = () => {
         } else {
             setError(false)
         }
-        setChange(false)
+        setEditMode(true)
         setState({...state, minValue: value})
     }
     const setMaxValue = (value: number) => {
@@ -60,14 +60,14 @@ export const App = () => {
             setError(false)
         }
         setState({...state, maxValue: value})
-        setChange(false)
+        setEditMode(true)
     }
     const onSet = () => {
-        if (state.minValue !== state.maxValue && state.minValue >= startedMinValueForError && !change) {
+        if (state.minValue !== state.maxValue && state.minValue >= startedMinValueForError && editMode) {
             setMinValue(state.minValue)
             setMaxValue(state.maxValue)
             resetNumber()
-            setChange(true)
+            setEditMode(false)
 
             localStorage.setItem('maxValue', JSON.stringify(state.maxValue))
             localStorage.setItem('minValue', JSON.stringify(state.minValue))
@@ -83,14 +83,14 @@ export const App = () => {
                 setMaxValue={setMaxValue}
                 onSet={onSet}
                 state={state}
-                change={change}
+                editMode={editMode}
                 error={error}
             />
             <Counter
                 increaseNumber={increaseNumber}
                 resetNumber={resetNumber}
                 state={state}
-                change={change}
+                editMode={editMode}
                 error={error}
             />
 
