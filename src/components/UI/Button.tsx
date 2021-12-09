@@ -4,13 +4,12 @@ import s from './Button.module.css';
 type PropsType = {
     name: string
     callBack: () => void
-    disabled?: boolean
+    disabled: boolean
 }
 
-export const Button = ({name, callBack, disabled, ...props}: PropsType) => {
+export const Button = ({name, callBack, disabled}: PropsType) => {
 
     const disabledStyle = disabled ? `${s.disabled} ${s.btn}` : `${s.btn}`;
-
     const onClickHandler = () => {
         callBack()
     }
