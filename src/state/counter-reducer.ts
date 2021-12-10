@@ -7,13 +7,13 @@ export type StateType = {
     currentValue: number
 }
 
-export const startedMinValueForError = 0; // min value to catch error with negative integer
-export const startedMaxValue = 5;
+export const startedMinValue = 0; // min value to catch error with negative integer
+const startedMaxValue = 5;
 
 const initialState: StateType = {
-    minValue: startedMinValueForError,
+    minValue: startedMinValue,
     maxValue: startedMaxValue,
-    currentValue: startedMinValueForError,
+    currentValue: startedMinValue,
 }
 
 type rootActionsType =
@@ -48,9 +48,9 @@ export const counterReducer = (state = initialState, action: rootActionsType): S
 
 // THUNK
 export const applySettingsTC = () => (dispatch: Dispatch) => {
-    dispatch(setMinValueAC(restoreState('minValue', startedMinValueForError)))
+    dispatch(setMinValueAC(restoreState('minValue', startedMinValue)))
     dispatch(setMaxValueAC(restoreState('maxValue', startedMaxValue)))
-    dispatch(setCurrentValueAC(restoreState('minValue', startedMinValueForError)))
+    dispatch(setCurrentValueAC(restoreState('minValue', startedMinValue)))
 }
 
 

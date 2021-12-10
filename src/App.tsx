@@ -5,13 +5,11 @@ import {Counter} from "./components/Counter/Counter";
 
 
 export const App = () => {
-    // console.log('App')
     const [editMode, setEditMode] = useState<boolean>(false)
     const [error, setError] = useState<boolean>(false)
 
     return (
         <div className={"app"}>
-
             <SettingsForCounter
                 editMode={editMode}
                 error={error}
@@ -22,7 +20,6 @@ export const App = () => {
                 editMode={editMode}
                 error={error}
             />
-
         </div>
     );
 }

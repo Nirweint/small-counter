@@ -8,7 +8,7 @@ import {
     resetNumberAC,
     setMaxValueAC,
     setMinValueAC,
-    startedMinValueForError,
+    startedMinValue,
     StateType
 } from "../../state/counter-reducer";
 import {RootReducerType} from "../../state/store";
@@ -30,7 +30,7 @@ export const SettingsForCounter = ({setError, setEditMode, editMode, error}: Pro
     }, [])
 
     const setMinValue = (value: number) => {
-        if (value < startedMinValueForError || value >= state.maxValue) {
+        if (value < startedMinValue || value >= state.maxValue) {
             setError(true)
         } else {
             setError(false)
@@ -48,7 +48,7 @@ export const SettingsForCounter = ({setError, setEditMode, editMode, error}: Pro
         setEditMode(true)
     }
     const applySettings = () => {
-        if (state.minValue !== state.maxValue && state.minValue >= startedMinValueForError && editMode) {
+        if (state.minValue !== state.maxValue && state.minValue >= startedMinValue && editMode) {
             setMinValue(state.minValue)
             setMaxValue(state.maxValue)
             dispatch(resetNumberAC())
@@ -58,6 +58,7 @@ export const SettingsForCounter = ({setError, setEditMode, editMode, error}: Pro
         }
     }
 
+    const isButtonDisabled = !editMode || error || state.minValue < 0
 
     return (
         <div className={s.settings}>
@@ -78,13 +79,13 @@ export const SettingsForCounter = ({setError, setEditMode, editMode, error}: Pro
                             type="number"
                             value={state.minValue}
                             setValue={setMinValue}
-                            min={startedMinValueForError - 1}
+                            min={startedMinValue - 1}
                             max={state.maxValue}
                         />
                     </div>
                 </div>
             </div>
-            <Button name={'set'} callBack={applySettings} disabled={!editMode || error}/>
+            <Button name={'set'} callBack={applySettings} disabled={isButtonDisabled}/>
         </div>
     );
 }

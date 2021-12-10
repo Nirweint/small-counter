@@ -9,7 +9,7 @@ type PropsType = {
     max?: number
 }
 
-export const Input = ({type, value, min, max, setValue, ...props}: PropsType) => {
+export const Input = ({type, value, min, max, setValue}: PropsType) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let num = e.currentTarget.value
         setValue(+num)
