@@ -5,60 +5,53 @@ import s from './SettingsForCounter.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {
     applySettingsTC,
-    resetNumberAC,
+    resetNumberAC, setEditModeAC, setErrorAC,
     setMaxValueAC,
     setMinValueAC,
     startedMinValue,
-    StateType
 } from "../../state/counter-reducer";
 import {RootReducerType} from "../../state/store";
 import {saveState} from "../../localStorage/localStorage";
+import {StateType} from "../../types/counter";
 
-type PropsType = {
-    editMode: boolean
-    error: boolean
-    setError: (value: boolean) => void
-    setEditMode: (value: boolean) => void
-}
-
-export const SettingsForCounter = ({setError, setEditMode, editMode, error}: PropsType) => {
+export const SettingsForCounter: React.FC = () => {
     const dispatch = useDispatch()
     const state = useSelector<RootReducerType, StateType>(state => state.counter)
     useEffect(() => {
         dispatch(applySettingsTC())
-        setEditMode(false)
+        dispatch(setEditModeAC(false))
     }, [])
 
     const setMinValue = (value: number) => {
         if (value < startedMinValue || value >= state.maxValue) {
-            setError(true)
+            dispatch(setErrorAC(true))
         } else {
-            setError(false)
+            dispatch(setErrorAC(false))
         }
-        setEditMode(true)
+        dispatch(setEditModeAC(true))
         dispatch(setMinValueAC(value))
     }
     const setMaxValue = (value: number) => {
         if (value <= state.minValue) {
-            setError(true)
+            dispatch(setErrorAC(true))
         } else {
-            setError(false)
+            dispatch(setErrorAC(false))
         }
         dispatch(setMaxValueAC(value))
-        setEditMode(true)
+        dispatch(setEditModeAC(true))
     }
     const applySettings = () => {
-        if (state.minValue !== state.maxValue && state.minValue >= startedMinValue && editMode) {
+        if (state.minValue !== state.maxValue && state.minValue >= startedMinValue && state.editMode) {
             setMinValue(state.minValue)
             setMaxValue(state.maxValue)
             dispatch(resetNumberAC())
-            setEditMode(false)
+            dispatch(setEditModeAC(false))
             saveState<number>('maxValue', state.maxValue)
             saveState<number>('minValue', state.minValue)
         }
     }
 
-    const isButtonDisabled = !editMode || error || state.minValue < 0
+    const isButtonDisabled = !state.editMode || state.error || state.minValue < 0
 
     return (
         <div className={s.settings}>

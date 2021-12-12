@@ -1,11 +1,6 @@
 import {Dispatch} from "redux";
 import {restoreState} from "../localStorage/localStorage";
-
-export type StateType = {
-    minValue: number
-    maxValue: number
-    currentValue: number
-}
+import {COUNTER_ACTION_TYPES, CounterActionTypes, StateType} from "../types/counter";
 
 export const startedMinValue = 0; // min value to catch error with negative integer
 const startedMaxValue = 5;
@@ -14,31 +9,33 @@ const initialState: StateType = {
     minValue: startedMinValue,
     maxValue: startedMaxValue,
     currentValue: startedMinValue,
+    editMode: false,
+    error: false,
 }
 
-type rootActionsType =
-    increaseNumberACType
-    | resetNumberACType
-    | setMinValueACType
-    | setMaxValueACType
-    | setCurrentValueACType
 
-export const counterReducer = (state = initialState, action: rootActionsType): StateType => {
+export const counterReducer = (state = initialState, action: CounterActionTypes): StateType => {
     switch (action.type) {
-        case "INCREASE-NUMBER": {
+        case COUNTER_ACTION_TYPES.INCREASE_NUMBER: {
             return {...state, currentValue: state.currentValue + 1}
         }
-        case "RESET-NUMBER": {
+        case COUNTER_ACTION_TYPES.RESET_NUMBER: {
             return {...state, currentValue: state.minValue}
         }
-        case "SET-MIN-VALUE": {
-            return {...state, minValue: action.value}
+        case COUNTER_ACTION_TYPES.SET_MIN_VALUE: {
+            return {...state, minValue: action.payload}
         }
-        case "SET-MAX-VALUE": {
-            return {...state, maxValue: action.value}
+        case COUNTER_ACTION_TYPES.SET_MAX_VALUE: {
+            return {...state, maxValue: action.payload}
         }
-        case "SET-CURRENT-VALUE": {
-            return {...state, currentValue: action.value}
+        case COUNTER_ACTION_TYPES.SET_CURRENT_VALUE: {
+            return {...state, currentValue: action.payload}
+        }
+        case COUNTER_ACTION_TYPES.SET_EDIT_MODE: {
+            return {...state, editMode: action.payload}
+        }
+        case COUNTER_ACTION_TYPES.SET_ERROR: {
+            return {...state, error: action.payload}
         }
         default: {
             return state
@@ -55,40 +52,49 @@ export const applySettingsTC = () => (dispatch: Dispatch) => {
 
 
 // ACTION CREATORS
-export type increaseNumberACType = ReturnType<typeof increaseNumberAC>
 export const increaseNumberAC = () => {
     return {
-        type: "INCREASE-NUMBER"
+        type: COUNTER_ACTION_TYPES.INCREASE_NUMBER
     } as const
 }
 
-export type resetNumberACType = ReturnType<typeof resetNumberAC>
 export const resetNumberAC = () => {
     return {
-        type: "RESET-NUMBER"
+        type: COUNTER_ACTION_TYPES.RESET_NUMBER
     } as const
 }
 
-export type setMinValueACType = ReturnType<typeof setMinValueAC>
-export const setMinValueAC = (value: number) => {
+export const setMinValueAC = (payload: number) => {
     return {
-        type: "SET-MIN-VALUE",
-        value,
+        type: COUNTER_ACTION_TYPES.SET_MIN_VALUE,
+        payload,
     } as const
 }
 
-export type setMaxValueACType = ReturnType<typeof setMaxValueAC>
-export const setMaxValueAC = (value: number) => {
+export const setMaxValueAC = (payload: number) => {
     return {
-        type: "SET-MAX-VALUE",
-        value,
+        type: COUNTER_ACTION_TYPES.SET_MAX_VALUE,
+        payload,
     } as const
 }
 
-export type setCurrentValueACType = ReturnType<typeof setCurrentValueAC>
-export const setCurrentValueAC = (value: number) => {
+export const setCurrentValueAC = (payload: number) => {
     return {
-        type: "SET-CURRENT-VALUE",
-        value,
+        type: COUNTER_ACTION_TYPES.SET_CURRENT_VALUE,
+        payload,
+    } as const
+}
+
+export const setEditModeAC = (payload: boolean) => {
+    return {
+        type: COUNTER_ACTION_TYPES.SET_EDIT_MODE,
+        payload,
+    } as const
+}
+
+export const setErrorAC = (payload: boolean) => {
+    return {
+        type: COUNTER_ACTION_TYPES.SET_ERROR,
+        payload,
     } as const
 }

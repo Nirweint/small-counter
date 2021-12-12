@@ -4,14 +4,10 @@ import {Button} from "../UI/Button";
 import s from './Counter.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType} from "../../state/store";
-import {increaseNumberAC, resetNumberAC, StateType} from "../../state/counter-reducer";
+import {increaseNumberAC, resetNumberAC} from "../../state/counter-reducer";
+import {StateType} from "../../types/counter";
 
-type CounterPropsType = {
-    editMode: boolean
-    error: boolean
-}
-
-export const Counter = ({editMode, error}: CounterPropsType) => {
+export const Counter: React.FC = () => {
 
     const state = useSelector<RootReducerType, StateType>(state => state.counter)
     const dispatch = useDispatch()
@@ -25,7 +21,7 @@ export const Counter = ({editMode, error}: CounterPropsType) => {
         dispatch(resetNumberAC())
     }
     const isButtonDisabled = (value: number) => {
-        return state.currentValue === value || editMode
+        return state.currentValue === value || state.editMode
     }
 
     return (
@@ -33,8 +29,8 @@ export const Counter = ({editMode, error}: CounterPropsType) => {
             <Display
                 currentValue={state.currentValue}
                 maxValue={state.maxValue}
-                editMode={editMode}
-                error={error}
+                editMode={state.editMode}
+                error={state.error}
             />
 
             <div className={s.buttons}>
