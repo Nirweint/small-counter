@@ -3,16 +3,16 @@ import s from './Input.module.css'
 
 type PropsType = {
     value: number
-    setValue: (value: number) => void
+    onChange: (value: number) => void
     type?: string
     min?: number
     max?: number
 }
 
-export const Input = ({type, value, min, max, setValue}: PropsType) => {
+export const Input = ({type, value, min, max, onChange}: PropsType) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let num = e.currentTarget.value
-        setValue(+num)
+        onChange(+num)
     }
 
     const errorStyle = min === value ? s.error : '' || max === value ? s.error : '';

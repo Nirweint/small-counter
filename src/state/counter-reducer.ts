@@ -44,12 +44,11 @@ export const counterReducer = (state = initialState, action: CounterActionTypes)
 }
 
 // THUNK
-export const applySettingsTC = () => (dispatch: Dispatch) => {
+export const getStateFromLocalStorageTC = () => (dispatch: Dispatch<CounterActionTypes>) => {
     dispatch(setMinValueAC(restoreState('minValue', startedMinValue)))
     dispatch(setMaxValueAC(restoreState('maxValue', startedMaxValue)))
     dispatch(setCurrentValueAC(restoreState('minValue', startedMinValue)))
 }
-
 
 // ACTION CREATORS
 export const increaseNumberAC = () => {

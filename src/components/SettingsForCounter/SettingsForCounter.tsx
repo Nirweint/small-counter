@@ -4,7 +4,7 @@ import {Input} from "../UI/Input";
 import s from './SettingsForCounter.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {
-    applySettingsTC,
+    getStateFromLocalStorageTC,
     resetNumberAC, setEditModeAC, setErrorAC,
     setMaxValueAC,
     setMinValueAC,
@@ -18,7 +18,7 @@ export const SettingsForCounter: React.FC = () => {
     const dispatch = useDispatch()
     const state = useSelector<RootReducerType, StateType>(state => state.counter)
     useEffect(() => {
-        dispatch(applySettingsTC())
+        dispatch(getStateFromLocalStorageTC())
         dispatch(setEditModeAC(false))
     }, [])
 
@@ -62,7 +62,7 @@ export const SettingsForCounter: React.FC = () => {
                         <Input
                             type="number"
                             value={state.maxValue}
-                            setValue={setMaxValue}
+                            onChange={setMaxValue}
                             min={state.minValue}
                         />
                     </div>
@@ -71,7 +71,7 @@ export const SettingsForCounter: React.FC = () => {
                         <Input
                             type="number"
                             value={state.minValue}
-                            setValue={setMinValue}
+                            onChange={setMinValue}
                             min={startedMinValue - 1}
                             max={state.maxValue}
                         />
