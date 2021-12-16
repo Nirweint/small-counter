@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {restoreState} from "../localStorage/localStorage";
+import {restoreState, saveState} from "../localStorage/localStorage";
 import {COUNTER_ACTION_TYPES, CounterActionTypes, StateType} from "../types/counter";
 
 export const startedMinValue = 0; // min value to catch error with negative integer
@@ -49,6 +49,17 @@ export const getStateFromLocalStorageTC = () => (dispatch: Dispatch<CounterActio
     dispatch(setMaxValueAC(restoreState('maxValue', startedMaxValue)))
     dispatch(setCurrentValueAC(restoreState('minValue', startedMinValue)))
 }
+export const setMinValueToLocalStorageTC = (minValue: number) => (dispatch: Dispatch<CounterActionTypes>) => {
+    saveState<number>('minValue', minValue)
+    dispatch(setMinValueAC(minValue))
+}
+export const setMaxValueToLocalStorageTC = (maxValue: number) => (dispatch: Dispatch<CounterActionTypes>) => {
+    saveState<number>('maxValue', maxValue)
+    dispatch(setMaxValueAC(maxValue))
+}
+
+
+
 
 // ACTION CREATORS
 export const increaseNumberAC = () => {

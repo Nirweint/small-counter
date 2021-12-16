@@ -6,12 +6,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     getStateFromLocalStorageTC,
     resetNumberAC, setEditModeAC, setErrorAC,
-    setMaxValueAC,
-    setMinValueAC,
+    setMaxValueAC, setMaxValueToLocalStorageTC,
+    setMinValueAC, setMinValueToLocalStorageTC,
     startedMinValue,
 } from "../../state/counter-reducer";
 import {RootReducerType} from "../../state/store";
-import {saveState} from "../../localStorage/localStorage";
 import {StateType} from "../../types/counter";
 
 export const SettingsForCounter: React.FC = () => {
@@ -40,14 +39,12 @@ export const SettingsForCounter: React.FC = () => {
         dispatch(setMaxValueAC(value))
         dispatch(setEditModeAC(true))
     }
-    const applySettings = () => {
+    const applySettingsHandler = () => {
         if (state.minValue !== state.maxValue && state.minValue >= startedMinValue && state.editMode) {
-            setMinValue(state.minValue)
-            setMaxValue(state.maxValue)
+            dispatch(setMinValueToLocalStorageTC(state.minValue))
+            dispatch(setMaxValueToLocalStorageTC(state.maxValue))
             dispatch(resetNumberAC())
             dispatch(setEditModeAC(false))
-            saveState<number>('maxValue', state.maxValue)
-            saveState<number>('minValue', state.minValue)
         }
     }
 
@@ -78,7 +75,7 @@ export const SettingsForCounter: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <Button name={'set'} callBack={applySettings} disabled={isButtonDisabled}/>
+            <Button name={'set'} callBack={applySettingsHandler} disabled={isButtonDisabled}/>
         </div>
     );
 }
